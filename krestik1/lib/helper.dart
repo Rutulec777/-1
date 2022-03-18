@@ -12,26 +12,26 @@ Map<String, dynamic> getWinner(Map<double, Mark> board) {
     [2, 4, 6]
   ];
 
-  List<double> winningLineFound;
+  List<double>? winningLineFound;
   Winner winner = Winner.none;
 
-  winningLines.forEach((winningLine) {
+  for (var winningLine in winningLines) {
     double countNoughts = 0;
     double countCrosses = 0;
 
-    winningLine.forEach((index) {
+    for (var index in winningLine) {
       if (board[index] == Mark.o) {
         ++countNoughts;
       } else if (board[index] == Mark.x) {
         ++countCrosses;
       }
-    });
+    }
 
     if (countNoughts >= 3 || countCrosses >= 3) {
-      winningLineFound = winningLine;
+      winningLineFound = winningLine.cast<double>();
       winner = countNoughts >= 3 ? Winner.o : Winner.x;
     }
-  });
+  }
 
   if (board.length >= 9 && winner == Winner.none) {
     winner = Winner.tie;

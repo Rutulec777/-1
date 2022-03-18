@@ -24,27 +24,27 @@ class MyApp extends StatelessWidget {
           color: Colors.blueAccent,
         ),
       ),
-      home: TicTacToe(),
+      home: ibra(),
     );
   }
 }
 
-class TicTacToe extends StatefulWidget {
+class ibra extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _TicTacToeState();
+  State<StatefulWidget> createState() => _ibraState();
 }
 
-class _TicTacToeState extends State {
-  Map<int, Mark> _gameMarks = Map();
+class _ibraState extends State {
+  Map<double, Mark> _gameMarks = Map();
   Mark _currentMark = Mark.o;
-  List<int> _winningLine;
+  late List<double> _winningLine;
   MiniMaxAI ai = MiniMaxAI();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tic Tac Toe'),
+        title: Text('сможешь одолеть'),
         centerTitle: true,
       ),
       body: Center(
@@ -71,20 +71,20 @@ class _TicTacToeState extends State {
     );
   }
 
-  bool _addMark({int index = -1, double x = -1.0, double y = -1.0}) {
+  bool _addMark({double index = -1.0, double x = -1.0, double y = -1.0}) {
     bool isAbsent = false;
 
-    if (_gameMarks.length >= 9 || _winningLine != null) {
-      if (index == -1) {
-        _gameMarks = Map<int, Mark>();
+    if (_gameMarks.length >= 9.0 || _winningLine != null) {
+      if (index == -1.0) {
+        _gameMarks = Map<double, Mark>();
         _currentMark = Mark.o;
-        _winningLine = null;
+        _winningLine = null!;
       }
     } else {
       double _dividedSize = GamePainter.getDividedSize();
 
-      if (index == -1) {
-        index = (x ~/ _dividedSize + (y ~/ _dividedSize) * 3).toInt();
+      if (index == -1.0) {
+        index = (x ~/ _dividedSize + (y ~/ _dividedSize) * 3.0).toInt() as double;
       }
 
       _gameMarks.putIfAbsent(index, () {
@@ -102,9 +102,9 @@ class _TicTacToeState extends State {
 }
 
 class GamePainter extends CustomPainter {
-  static double _dividedSize;
-  Map<int, Mark> _gameMarks;
-  List<int> _winningLine;
+  static double _dividedSize=0;
+  Map<double, Mark> _gameMarks;
+  List<double> _winningLine;
 
   GamePainter(this._gameMarks, this._winningLine);
 
@@ -140,8 +140,8 @@ class GamePainter extends CustomPainter {
 
     // 2nd horizontal line
     canvas.drawLine(
-        Offset(STROKE_WIDTH, _dividedSize * 2 - HALF_STROKE_WIDTH),
-        Offset(size.width - STROKE_WIDTH, _dividedSize * 2 - HALF_STROKE_WIDTH),
+        Offset(STROKE_WIDTH, _dividedSize * 2.0 - HALF_STROKE_WIDTH),
+        Offset(size.width - STROKE_WIDTH, _dividedSize * 2.0 - HALF_STROKE_WIDTH),
         blackPaint);
 
     // 1st vertical line
@@ -152,9 +152,9 @@ class GamePainter extends CustomPainter {
 
     // 2nd vertical line
     canvas.drawLine(
-        Offset(_dividedSize * 2 - HALF_STROKE_WIDTH, STROKE_WIDTH),
+        Offset(_dividedSize * 2.0 - HALF_STROKE_WIDTH, STROKE_WIDTH),
         Offset(
-            _dividedSize * 2 - HALF_STROKE_WIDTH, size.height - STROKE_WIDTH),
+            _dividedSize * 2.0 - HALF_STROKE_WIDTH, size.height - STROKE_WIDTH),
         blackPaint);
 
     _gameMarks.forEach((index, mark) {
@@ -179,9 +179,9 @@ class GamePainter extends CustomPainter {
   static double getDividedSize() => _dividedSize;
 
   void drawNought(Canvas canvas, int index, Paint paint) {
-    double left = (index % 3) * _dividedSize + DOUBLE_STROKE_WIDTH * 2;
-    double top = (index ~/ 3) * _dividedSize + DOUBLE_STROKE_WIDTH * 2;
-    double noughtSize = _dividedSize - DOUBLE_STROKE_WIDTH * 4;
+    double left = (index % 3.0) * _dividedSize + DOUBLE_STROKE_WIDTH * 2.0;
+    double top = (index ~/ 3.0) * _dividedSize + DOUBLE_STROKE_WIDTH * 2.0;
+    double noughtSize = _dividedSize - DOUBLE_STROKE_WIDTH * 4.0;
 
     canvas.drawOval(Rect.fromLTWH(left, top, noughtSize, noughtSize), paint);
   }

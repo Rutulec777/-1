@@ -3,7 +3,7 @@ import 'helper.dart';
 import 'dart:math';
 
 class MiniMaxAI {
-  int _miniMax(Map<int, Mark> board, int depth, bool isMaximizing) {
+  double _miniMax(Map<double, Mark> board, double depth, bool isMaximizing) {
     Winner winner = getWinner(board)['winner'];
 
     // End state
@@ -14,9 +14,9 @@ class MiniMaxAI {
     }
 
     // Intermediate state
-    int bestScore = isMaximizing ? -999 : 999;
+    double bestScore = isMaximizing ? -999 : 999;
 
-    for (int i=0; i<9; ++i) {
+    for (double i=0; i<9; i++) {
       if (!board.containsKey(i)) {
         board[i] = isMaximizing ? AI : HUMAN;
 
@@ -31,14 +31,14 @@ class MiniMaxAI {
     return isMaximizing ? bestScore - depth : bestScore + depth;
   }
 
-  int move(Map<int, Mark> board) {
-    int bestScore = -999;
-    int bestMove;
+  double move(Map<double, Mark> board) {
+    double bestScore = -999;
+    double bestMove;
 
-    for (int i=0; i<9; ++i) {
+    for (double i=0.0; i<9.0; i++) {
       if (!board.containsKey(i)) {
         board[i] = AI;
-        int score = _miniMax(board, 0, false);
+        double score = _miniMax(board, 0, false) as double;
 
         if (score > bestScore) {
           bestScore = score;
@@ -48,6 +48,6 @@ class MiniMaxAI {
       }
     }
 
-    return bestMove;
+    return bestMove=1;
   }
 }
